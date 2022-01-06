@@ -41,7 +41,7 @@ jobs:
       #   run: mkdir ~/dist; mv $(go env GOPATH)/bin/* ~/dist; ls ~/dist/windows_amd64
 
       - name: Test release
-        run: mkdir -p ~/dist/windows_amd64/; echo hi > ~/dist/windows_amd64/dgraph.exe; ls ~/dist/windows_amd64
+        run: mkdir -p ~/dist/windows_amd64/; echo hi > ~/dist/windows_amd64/dgraph.txt; ls ~/dist/windows_amd64; cat ~/dist/windows_amd64/dgraph.txt; cp ~/dist/windows_amd64/dgraph.txt .
       # - name: Upload linux build as artifact
       #   uses: actions/upload-artifact@v2
       #   with:
@@ -60,10 +60,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dgraph_windows_amd64
-          path: ~/dist/windows_amd64/dgraph.exe
+          path: ~/dist/windows_amd64/dgraph.txt
           if-no-files-found: error 
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ~/dist/windows_amd64/dgraph.exe
+          files: ./dgraph.txt
+          fail_on_unmatched_files: true
