@@ -1,6 +1,5 @@
 name: build-dgraph
 
-
 on:
   push:
     tags:
@@ -67,4 +66,4 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ~/dist/dgraph/*
+          files: ~/dist/windows_amd64/dgraph.exe
