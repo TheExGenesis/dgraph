@@ -41,7 +41,7 @@ jobs:
       #   run: mkdir ~/dist; mv $(go env GOPATH)/bin/* ~/dist; ls ~/dist/windows_amd64
 
       - name: Test release
-        run: mkdir -p ~/dist/windows_amd64/; touch ~/dist/windows_amd64/dgraph.exe
+        run: mkdir -p ~/dist/windows_amd64/; echo hi > ~/dist/windows_amd64/dgraph.exe; ls ~/dist/windows_amd64
       # - name: Upload linux build as artifact
       #   uses: actions/upload-artifact@v2
       #   with:
