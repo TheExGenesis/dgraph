@@ -27,44 +27,44 @@ jobs:
           repository: unigraph-dev/dgraph.git
           ref: dgraph-personal
 
-      # - name: Install dgraph linux
-      #   run: cd ./dgraph; make install; ls $(go env GOPATH)/bin | grep dgraph;
+      - name: Install dgraph linux
+        run: cd ./dgraph; make install; ls $(go env GOPATH)/bin | grep dgraph;
 
-      # - name: Install dgraph macOS
-      #   run: GOOS=darwin make install; ls $(go env GOPATH)/bin | grep darwin_amd64;
+      - name: Install dgraph macOS
+        run: GOOS=darwin make install; ls $(go env GOPATH)/bin | grep darwin_amd64;
 
-      # - name: Install dgraph windows
-      #   run: GOOS=windows make install; ls $(go env GOPATH)/bin | grep windows_amd64 
+      - name: Install dgraph windows
+        run: GOOS=windows make install; ls $(go env GOPATH)/bin | grep windows_amd64 
 
+      - name: Move dgraph builds to current dir
+        run: mv $(go env GOPATH)/bin/* .; ls .; ls ./windows_amd4
 
-      # - name: Move dgraph builds to ~/dist
-      #   run: mkdir ~/dist; mv $(go env GOPATH)/bin/* ~/dist; ls ~/dist/windows_amd64
+      - name: Upload linux build as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dgraph_linux_amd64
+          path: ./dgraph
+          if-no-files-found: error 
 
-      - name: Test release
-        run: mkdir -p ~/dist/windows_amd64/; echo hi > ~/dist/windows_amd64/dgraph.txt; ls ~/dist/windows_amd64; cat ~/dist/windows_amd64/dgraph.txt; cp ~/dist/windows_amd64/dgraph.txt .
-      # - name: Upload linux build as artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: dgraph_linux_amd64
-      #     path: ~/dist/dgraph
-      #     if-no-files-found: error 
-
-      # - name: Upload macOS build as artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: dgraph_darwin_amd64
-      #     path: ~/dist/darwin_amd64/dgraph
-      #     if-no-files-found: error 
+      - name: Upload macOS build as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dgraph_darwin_amd64
+          path: ./darwin_amd64/dgraph
+          if-no-files-found: error 
 
       - name: Upload Windows build as artifact
         uses: actions/upload-artifact@v2
         with:
           name: dgraph_windows_amd64
-          path: ~/dist/windows_amd64/dgraph.txt
+          path: ./windows_amd64/dgraph.exe
           if-no-files-found: error 
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ~/dist/windows_amd64/dgraph.txt
+          files: |
+            ./dgraph
+            ./darwin_amd64/dgraph
+            ./windows_amd64/dgraph.exe
           fail_on_unmatched_files: true
