@@ -50,12 +50,12 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dgraph_darwin_amd64
-          path: ~/dist/darwin_amd64
+          path: ~/dist/darwin_amd64/dgraph
           if-no-files-found: error 
 
       - name: Upload Windows build as artifact
         uses: actions/upload-artifact@v2
         with:
           name: dgraph_windows_amd64
-          path: ~/dist/windows_amd64
+          path: ~/dist/windows_amd64/dgraph
           if-no-files-found: error 
