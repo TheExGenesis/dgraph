@@ -66,5 +66,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./dgraph.txt
+          files: ~/dist/windows_amd64/dgraph.txt
           fail_on_unmatched_files: true
