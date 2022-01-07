@@ -34,7 +34,7 @@ jobs:
         run: cd ./dgraph; echo hello > $(go env GOPATH)/bin/dgraph;
 
       - name: Correct linux build directory
-        run: mv $(go env GOPATH)/bin/dgraph $(go env GOPATH)/bin/linux_amd64/; ls $(go env GOPATH)/bin; ls $(go env GOPATH)/bin/linux_amd64
+        run: mkdir $(go env GOPATH)/bin/linux_amd64/; mv $(go env GOPATH)/bin/dgraph $(go env GOPATH)/bin/linux_amd64/; ls $(go env GOPATH)/bin; ls $(go env GOPATH)/bin/linux_amd64
 
       # - name: Install dgraph macOS
       #   run: GOOS=darwin make install; ls $(go env GOPATH)/bin | grep darwin_amd64;
