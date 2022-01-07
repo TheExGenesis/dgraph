@@ -30,11 +30,11 @@ jobs:
       # - name: Install dgraph linux
       #   run: cd ./dgraph; make install; ls $(go env GOPATH)/bin;
 
-      - name: Test install dgraph linux
-        run: cd ./dgraph; echo hello > $(go env GOPATH)/bin/dgraph;
+      # - name: Test install dgraph linux
+      #   run: cd ./dgraph; echo hello > $(go env GOPATH)/bin/dgraph;
 
-      - name: Correct linux build directory
-        run: mv $(go env GOPATH)/bin/dgraph $(go env GOPATH)/bin/linux_amd64/; ls $(go env GOPATH)/bin; ls $(go env GOPATH)/bin/linux_amd64;
+      # - name: Correct linux build directory
+      #   run: mv $(go env GOPATH)/bin/dgraph $(go env GOPATH)/bin/linux_amd64/; ls $(go env GOPATH)/bin; ls $(go env GOPATH)/bin/linux_amd64;
 
       # - name: Install dgraph macOS
       #   run: GOOS=darwin make install; ls $(go env GOPATH)/bin | grep darwin_amd64;
@@ -42,15 +42,15 @@ jobs:
       # - name: Install dgraph windows
       #   run: GOOS=windows make install; ls $(go env GOPATH)/bin | grep windows_amd64 
 
-      - name: Move dgraph builds to current dir
-        run: mv $(go env GOPATH)/bin/* .; ls .;
+      # - name: Move dgraph builds to current dir
+      #   run: mv $(go env GOPATH)/bin/* .; ls .;
 
-      - name: Upload linux build as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: dgraph_linux_amd64
-          path: ./linux_amd64/dgraph
-          if-no-files-found: error 
+      # - name: Upload linux build as artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: dgraph_linux_amd64
+      #     path: ./linux_amd64/dgraph
+      #     if-no-files-found: error 
 
       # - name: Upload macOS build as artifact
       #   uses: actions/upload-artifact@v2
@@ -66,10 +66,10 @@ jobs:
       #     path: ./windows_amd64/dgraph.exe
       #     if-no-files-found: error 
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./linux_amd64/dgraph
-            # ./darwin_amd64/dgraph
-            # ./windows_amd64/dgraph.exe
-          fail_on_unmatched_files: true
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     files: ./linux_amd64/dgraph
+      #       # ./darwin_amd64/dgraph
+      #       # ./windows_amd64/dgraph.exe
+      #     fail_on_unmatched_files: true
