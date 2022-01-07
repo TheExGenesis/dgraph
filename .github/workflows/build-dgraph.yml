@@ -43,7 +43,7 @@ jobs:
         run: GOOS=windows make install; ls $(go env GOPATH)/bin | grep windows_amd64 
 
       - name: Move dgraph builds to current dir
-        run: mv $(go env GOPATH)/bin/* .; ls .;
+        run: mv $(go env GOPATH)/bin/linux_amd64/dgraph ./dgraph_linux_amd64; mv $(go env GOPATH)/bin/darwin_amd64/dgraph ./dgraph_darwin_amd64; mv $(go env GOPATH)/bin/windows_amd64/dgraph.exe ./dgraph_windows_amd64.exe; ls .;
 
       - name: Upload linux build as artifact
         uses: actions/upload-artifact@v2
@@ -70,7 +70,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./linux_amd64/dgraph
-            ./darwin_amd64/dgraph
-            ./windows_amd64/dgraph.exe
+            ./dgraph_linux_amd64
+            ./dgraph_darwin_amd64
+            ./dgraph_windows_amd64.exe
           fail_on_unmatched_files: true
