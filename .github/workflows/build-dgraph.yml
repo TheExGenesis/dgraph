@@ -2,8 +2,8 @@ name: build-dgraph
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - dgraph-personal
       
 jobs:
   
@@ -85,3 +85,4 @@ jobs:
             ./dist/dgraph_darwin_arm64
             ./dist/dgraph_windows_amd64.exe
           fail_on_unmatched_files: true
+
