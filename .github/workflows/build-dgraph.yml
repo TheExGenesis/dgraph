@@ -13,7 +13,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2.1.5
         with:
-          go-version: '^1.13.1' 
+          go-version: '^1.17.7' 
 
       - name: Install dgraph dependencies
         run: sudo apt-get update; sudo apt-get install gcc make
@@ -30,20 +30,20 @@ jobs:
       - name: Install dgraph linux
         run: cd ./dgraph; make install; ls $(go env GOPATH)/bin;
 
-      # - name: Test install dgraph linux
-      #   run: cd ./dgraph; echo hello > $(go env GOPATH)/bin/dgraph;
-
       - name: Correct linux build directory
         run: mkdir $(go env GOPATH)/bin/linux_amd64/; mv $(go env GOPATH)/bin/dgraph $(go env GOPATH)/bin/linux_amd64/; ls $(go env GOPATH)/bin; ls $(go env GOPATH)/bin/linux_amd64
 
       - name: Install dgraph macOS
         run: GOOS=darwin make install; ls $(go env GOPATH)/bin
 
+      - name: Install dgraph macOS M1
+        run: GOOS=darwin GOARCH=arm64 make install; ls $(go env GOPATH)/bin
+
       - name: Install dgraph windows
         run: GOOS=windows make install; ls $(go env GOPATH)/bin
 
       - name: Move dgraph builds to current dir
-        run: mkdir dist; mv $(go env GOPATH)/bin/linux_amd64/dgraph ./dist/dgraph_linux_amd64; mv $(go env GOPATH)/bin/darwin_amd64/dgraph ./dist/dgraph_darwin_amd64; mv $(go env GOPATH)/bin/windows_amd64/dgraph.exe ./dist/dgraph_windows_amd64.exe; ls .;
+        run: mkdir dist; mv $(go env GOPATH)/bin/linux_amd64/dgraph ./dist/dgraph_linux_amd64; mv $(go env GOPATH)/bin/darwin_amd64/dgraph ./dist/dgraph_darwin_amd64; mv $(go env GOPATH)/bin/darwin_arm64/dgraph ./dist/dgraph_darwin_arm64; mv $(go env GOPATH)/bin/windows_amd64/dgraph.exe ./dist/dgraph_windows_amd64.exe; ls .;
 
       - name: Upload linux build as artifact
         uses: actions/upload-artifact@v2
@@ -57,6 +57,13 @@ jobs:
         with:
           name: dgraph_darwin_amd64
           path: ./dist/dgraph_darwin_amd64
+          if-no-files-found: error 
+      
+      - name: Upload macOS M1 build as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dgraph_darwin_arm64
+          path: ./dist/dgraph_darwin_arm64
           if-no-files-found: error 
 
       - name: Upload Windows build as artifact
@@ -72,5 +79,6 @@ jobs:
           files: |
             ./dist/dgraph_linux_amd64
             ./dist/dgraph_darwin_amd64
+            ./dist/dgraph_darwin_arm64
             ./dist/dgraph_windows_amd64.exe
           fail_on_unmatched_files: true
