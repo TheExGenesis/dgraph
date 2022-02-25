@@ -30,6 +30,9 @@ jobs:
       - name: Install dgraph linux
         run: cd ./dgraph; make install; ls $(go env GOPATH)/bin;
 
+      # - name: Test install dgraph linux
+      #   run: cd ./dgraph; echo hello > $(go env GOPATH)/bin/dgraph;
+
       - name: Correct linux build directory
         run: mkdir $(go env GOPATH)/bin/linux_amd64/; mv $(go env GOPATH)/bin/dgraph $(go env GOPATH)/bin/linux_amd64/; ls $(go env GOPATH)/bin; ls $(go env GOPATH)/bin/linux_amd64
 
